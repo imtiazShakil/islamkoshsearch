@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="islamkosh/core/src/java"/>
+	<classpathentry kind="src" path="islamkosh/data-analysis/core/src/java"/>
+	<classpathentry kind="src" path="islamkosh/datacollection/core/src/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
