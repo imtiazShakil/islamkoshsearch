@@ -33,6 +33,8 @@ public class KeywordExtraction {
 	 * defines maximum Keyword Size
 	 */
 	private static final String MAX_KEYWORDS_SIZE = "100";
+	
+	private static final String KEYWORDS_METADATA_FIELD_NAME = "keywords";
 	/**
 	 * defines the minimum score2 that is required of each {@link GeneralTerm} to be selected as a keyword.
 	 */
@@ -49,7 +51,7 @@ public class KeywordExtraction {
 			KeywordExtraction ob = new KeywordExtraction();
 			String keywords = ob.process(metadata
 					.get(field));
-			metadata.add(field, keywords);
+			metadata.add(KEYWORDS_METADATA_FIELD_NAME, keywords);
 
 		}
 		long end = System.currentTimeMillis();

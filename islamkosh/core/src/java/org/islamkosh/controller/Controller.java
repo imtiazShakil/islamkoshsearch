@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.islamkosh.analyzer.Analyzer;
 import org.islamkosh.datacollector.Collector;
 import org.islamkosh.datacollector.MySQLCollector;
 import org.islamkosh.dataindexer.Indexer;
@@ -15,6 +16,7 @@ public class Controller {
 	
 	public static void main(String args[]) {
 		Collector collector = new MySQLCollector();
+		Analyzer analyzer = new Analyzer();
 		Indexer indexer = new SolrIndexer();
 		
 		ArrayList<Metadata> collection = collector.collectData();
@@ -23,7 +25,10 @@ public class Controller {
 			return;
 		}
 		
-		if (indexer.indexData(collection) == false) {
+		analyzer.analyze(collection);
+		
+		boolean indexingResponse = indexer.indexData(collection);
+		if (indexingResponse == false) {
 			LOG.info("Indexing failed!");
 			return;
 		}
