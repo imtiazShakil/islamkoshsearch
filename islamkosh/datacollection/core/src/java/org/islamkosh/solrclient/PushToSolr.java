@@ -85,10 +85,10 @@ public class PushToSolr {
 		solr.add(doc);
 	}
 	
-	public static void addToIndex(ArrayList<Metadata> hadiths)
+	public static void addToIndex(ArrayList<Metadata> metadataCollection)
 			throws SolrServerException, IOException {
-		for (Metadata hadith : hadiths) {
-			addToIndex(createSolrInputDoc(hadith));
+		for (Metadata metadata : metadataCollection) {
+			addToIndex(createSolrInputDoc(metadata));
 		}
 	}
 
