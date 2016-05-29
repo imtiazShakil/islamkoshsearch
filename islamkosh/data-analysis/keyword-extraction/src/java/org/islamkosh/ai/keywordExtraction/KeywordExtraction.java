@@ -48,8 +48,7 @@ public class KeywordExtraction {
 	public void filter(Metadata metadata, String field) {
 		long start = System.currentTimeMillis();
 		if (!metadata.get(field).isEmpty()) {
-			KeywordExtraction ob = new KeywordExtraction();
-			String keywords = ob.process(metadata
+			String keywords = process(metadata
 					.get(field));
 			metadata.add(KEYWORDS_METADATA_FIELD_NAME, keywords);
 
