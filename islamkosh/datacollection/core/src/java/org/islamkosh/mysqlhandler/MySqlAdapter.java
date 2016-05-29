@@ -19,14 +19,14 @@ import java.util.ArrayList;
  *
  * This class is written for accessing the MySqlDb
  */
-public class DBRequestHandler {
-	private static final Log LOG = LogFactory.getLog(DBRequestHandler.class
+public class MySqlAdapter {
+	private static final Log LOG = LogFactory.getLog(MySqlAdapter.class
 			.getName());
 
 	private Connection connect;
 	private ResultSet resultSet;
 	private Statement statement;
-	private ArrayList<Metadata> hadiths;
+	private ArrayList<Metadata> rows;
 
 	private String DB_URL = "jdbc:mysql://localhost/hadiths?";
 	private String DB_USER = "root";
@@ -46,7 +46,7 @@ public class DBRequestHandler {
 	 * @param tableName
 	 *            Name of the table
 	 */
-	public DBRequestHandler(String dbUrl, String dbUser, String dbPass,
+	public MySqlAdapter(String dbUrl, String dbUser, String dbPass,
 			String tableName) {
 		DB_URL = dbUrl;
 		DB_USER = dbUser;
@@ -99,7 +99,7 @@ public class DBRequestHandler {
 	 * Public getter method for all hadiths. This will execute the query and populate the
 	 * ArrayList.
 	 */
-	public ArrayList<Metadata> getAllHadiths() {
+	public ArrayList<Metadata> getAllRows() {
 		try {
 			// Statements allow to issue SQL queries to the database
 			LOG.info("Executing SQL Query...");
@@ -109,17 +109,17 @@ public class DBRequestHandler {
 					"SELECT * FROM %s",
 					TABLE_NAME));
 			while (resultSet.next()) {
-				Metadata hadith = new Metadata(Integer.toString(resultSet.getInt("id")));
-				hadith.set("chapter", resultSet.getString("chapter"));
-				hadith.set("section", resultSet.getString("section"));
-				hadith.set("narrator", resultSet.getString("narrator"));
-				hadith.set("body", resultSet.getString("body"));
+				Metadata row = new Metadata(Integer.toString(resultSet.getInt("id")));
+				row.set("chapter", resultSet.getString("chapter"));
+				row.set("section", resultSet.getString("section"));
+				row.set("narrator", resultSet.getString("narrator"));
+				row.set("body", resultSet.getString("body"));
 				
-				hadiths.add(hadith);
+				rows.add(row);
 			}
-			LOG.info("Found " + hadiths.size() + " hadiths.");
+			LOG.info("Found " + rows.size() + " rows.");
 			// writeResultSet(resultSet);
-			return hadiths;
+			return rows;
 		} catch (SQLException e) {
 			LOG.fatal("SQLException Occurred. Check the log to see the details.");
 			if (LOG.isErrorEnabled()) {

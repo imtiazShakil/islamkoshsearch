@@ -6,10 +6,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.islamkosh.analyzer.Analyzer;
 import org.islamkosh.datacollector.Collector;
-import org.islamkosh.datacollector.MySQLCollector;
 import org.islamkosh.dataindexer.Indexer;
-import org.islamkosh.dataindexer.SolrIndexer;
 import org.islamkosh.metadata.Metadata;
+import org.islamkosh.mysqlhandler.MySQLCollector;
+import org.islamkosh.solrclient.SolrIndexer;
 
 public class Controller {
 	private static final Log LOG = LogFactory.getLog(Controller.class.getName());

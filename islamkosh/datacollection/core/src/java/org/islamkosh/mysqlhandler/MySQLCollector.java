@@ -1,11 +1,11 @@
-package org.islamkosh.datacollector;
+package org.islamkosh.mysqlhandler;
 
 import java.util.ArrayList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.islamkosh.datacollector.Collector;
 import org.islamkosh.metadata.Metadata;
-import org.islamkosh.mysqlhandler.DBRequestHandler;
 
 public class MySQLCollector implements Collector {
 	private static final Log LOG = LogFactory.getLog(MySQLCollector.class.getName());
@@ -20,7 +20,7 @@ public class MySQLCollector implements Collector {
 	 * returns null if no data is found or any error occurred
 	 */
 	public ArrayList<Metadata> collectData() {
-		DBRequestHandler dbHandler = new DBRequestHandler(DB_URL, DB_USER, DB_PASS, TABLE_NAME);
+		MySqlAdapter dbHandler = new MySqlAdapter(DB_URL, DB_USER, DB_PASS, TABLE_NAME);
 		
 		LOG.info("Connecting to database...");
 		try {
@@ -33,7 +33,7 @@ public class MySQLCollector implements Collector {
             return  null;
 		}
 		
-		ArrayList<Metadata> dataCollection = dbHandler.getAllHadiths();
+		ArrayList<Metadata> dataCollection = dbHandler.getAllRows();
 		
 		return dataCollection;
 	}
