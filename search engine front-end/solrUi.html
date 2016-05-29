@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>Search Engine Test</title>
 <script src="jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="googleStyle.css">
 
 <script>
 $(document).ready(function(){
@@ -12,7 +12,7 @@ $(document).ready(function(){
 	var SOLR_URL="http://localhost:8983/solr/islamkoshcore/searchkosh?"
 
 	$("#tfq2b").click(function() {
-		if ($("#tfq2b").val() == "Search our website"){
+		if ($("#tfq2b").val() == "Search Islam Kosh"){
 			$("#tfq2b").val(""); 
 		}
 	});
@@ -29,14 +29,15 @@ $(document).ready(function(){
 		}
 	});
 	function solrReq(query) {
+		   console.log("query:"+query);
 		   jQuery.ajax({
            url: SOLR_URL,
            type:"get",
            data: { 'json.wrf':'callback', 'q':query},
            dataType:"jsonp",
            success: function(data) {
-               //console.log(data);
-               writeDocs2(data.response.docs);
+               console.log(data);
+               writeDocs3(data.response.docs, data.highlighting);
            },
            error: function(data) {
                successmessage = 'Error';
@@ -62,19 +63,37 @@ $(document).ready(function(){
     function writeDocs2(docs){
 		$("#solr_result").empty();
 
-    	var resutlBoxStart="<div class=\"gsc-webResult gsc-result\" >";
+    	var resutlBoxStart="<div id='resultBox'>";
     	var resultBoxEnd="</div>";
     	$.each(docs, function(index,value){
 			
-			var title="<div class=\"gs-title\" >" + "<a class=\"gs-title\" href="+this.id+">"+ this.chapter+"</a></div>";
-			var section="<div class=\"gs-title\" >" +this.section +"</div>";
-			$("#solr_result").append(resutlBoxStart + title + section + resultBoxEnd);
+			var title="<div>" + "<a class=\"gs-title\" href="+this.id+">"+ "chapter: " +this.chapter+"</a></div>";
+			var section="<div style='color:green;'>" + "section: " +this.section +"</div>";
+			var narrator="<div style='color:brown; font-style:italic;'>" + "narrator: " + this.narrator +"</div>";
+			$("#solr_result").append(resutlBoxStart + title + section + narrator + resultBoxEnd);
 			   		
     		
     	});
-
     }
 
+    function writeDocs3(docs, highlightDocs){
+		$("#solr_result").empty();
+
+    	var resutlBoxStart="<div id='resultBox'>";
+    	var resultBoxEnd="</div>";
+    	$.each(docs, function(index,value){
+			
+			var title="<div>" + "<a class=\"gs-title\" href="+this.id+">"+ "chapter: " +this.chapter+"</a></div>";
+			var section="<div style='color:green;'>" + "section: " +this.section +"</div>";
+			var narrator="<div style='color:brown; font-style:italic;'>" + "narrator: " + this.narrator +"</div>";
+			var highlightBody="<div style='color:black; '>" + "body: " + highlightDocs[this.id].body +"</div>";
+			
+			$("#solr_result").append(resutlBoxStart + title + section + narrator + highlightBody + resultBoxEnd);
+			   		
+    		
+    	});
+    }
+    
 
 });
 </script>
@@ -84,13 +103,13 @@ $(document).ready(function(){
 	<!-- HTML for SEARCH BAR -->
 	<div id="tfheader">
 		<div id="tfnewsearch" >
-		        <input type="text" id="tfq2b" class="tftextinput2" size="21" maxlength="120" value="Search our website">
+		        <input type="text" id="tfq2b" class="tftextinput2" size="21" maxlength="120" value="Search Islam Kosh">
 		        <input type="submit" value=">" class="tfbutton2">
 		</div>
 		<div class="tfclear"></div>
 	</div>
 	
-<div id="solr_result" class="gsc-results"></div>
+<div id="solr_result"></div>
 
 
 </body>

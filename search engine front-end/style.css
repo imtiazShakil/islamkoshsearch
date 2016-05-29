@@ -2,8 +2,8 @@
 		background-color:#c3dfef;
 	}
 	#tfnewsearch{
-		float:right;
-		padding:20px;
+		float:left;
+		padding:20px 50px;
 	}
 	.tftextinput2{
 		margin: 0;
@@ -46,4 +46,10 @@
 	.tfclear{
 		clear:both;
 	}
-
+	#solr_result {
+		padding: 30px 50px;
+	}
+	#resultBox{
+		padding-bottom: 20px;
+		width: 60%;
+	}
