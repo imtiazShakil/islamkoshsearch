@@ -8,25 +8,9 @@
 
 <script>
 $(document).ready(function(){
-    
-    $("button").click(function(){
-    	jQuery.ajax({
-           url: "http://localhost:8983/solr/chorkiSearch/chorki?",
-           type:"get",
-           data: { 'json.wrf':'callback', 'q':'shirt'},
-           dataType:"jsonp",
-           success: function(data) {
-               //console.log(data);
-               writeDocs(data.response.docs);
-           },
-           error: function(data) {
-               successmessage = 'Error';
-               $("label#successmessage").text(successmessage);
-           },
-           jsonpCallback: 'callback',
-    	});	
-    });
 	
+	var SOLR_URL="http://localhost:8983/solr/islamkoshcore/searchkosh?"
+
 	$("#tfq2b").click(function() {
 		if ($("#tfq2b").val() == "Search our website"){
 			$("#tfq2b").val(""); 
@@ -46,7 +30,7 @@ $(document).ready(function(){
 	});
 	function solrReq(query) {
 		   jQuery.ajax({
-           url: "http://localhost:8983/solr/chorkiSearch/chorki?",
+           url: SOLR_URL,
            type:"get",
            data: { 'json.wrf':'callback', 'q':query},
            dataType:"jsonp",
@@ -82,8 +66,9 @@ $(document).ready(function(){
     	var resultBoxEnd="</div>";
     	$.each(docs, function(index,value){
 			
-			var title="<div class=\"gs-title\" >" + "<a class=\"gs-title\" href="+this.url+">"+ this.title+"</a></div>";
-			$("#solr_result").append(resutlBoxStart+title+resultBoxEnd);
+			var title="<div class=\"gs-title\" >" + "<a class=\"gs-title\" href="+this.id+">"+ this.chapter+"</a></div>";
+			var section="<div class=\"gs-title\" >" +this.section +"</div>";
+			$("#solr_result").append(resutlBoxStart + title + section + resultBoxEnd);
 			   		
     		
     	});
@@ -105,24 +90,9 @@ $(document).ready(function(){
 		<div class="tfclear"></div>
 	</div>
 	
-
-<button>Execute</button>
 <div id="solr_result" class="gsc-results"></div>
 
 
-<div class="g">
-<!--m-->
-	<div class="rc" data-hveid="50">
-		<h3 class="r">
-			<a href="http://www.w3schools.com/html/html_css.asp">HTML CSS - W3Schools</a>
-		</h3>
-		<div class="s">
-			<div>	
-				<span class="st" data-hveid="57">Chapter Summary. Use the <em>HTML</em> style attribute for inline <em>styling</em>. Use the <em>HTML</em> &lt;style&gt; element to define internal <em>CSS</em>. Use the <em>HTML</em> &lt;<em>link</em>&gt; element to refer to an external <em>CSS file</em>. Use the <em>HTML</em> &lt;head&gt; element to store &lt;style&gt; and &lt;<em>link</em>&gt; elements. Use the <em>CSS</em> color property for text colors.</span>
-			</div>
-		</div>
-	</div>
-</div>
 </body>
 </html>
 

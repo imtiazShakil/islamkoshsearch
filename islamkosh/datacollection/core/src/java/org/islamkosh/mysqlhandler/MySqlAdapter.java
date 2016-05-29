@@ -52,6 +52,7 @@ public class MySqlAdapter {
 		DB_USER = dbUser;
 		DB_PASS = dbPass;
 		TABLE_NAME = tableName;
+		rows = new ArrayList<Metadata>();
 	}
 
 	/**

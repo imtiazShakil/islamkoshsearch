@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="islamkosh/core/src/java"/>
+	<classpathentry kind="src" path="islamkosh/core/src/test"/>
 	<classpathentry kind="src" path="islamkosh/data-analysis/stopword-filter/src/java"/>
 	<classpathentry kind="src" path="islamkosh/data-analysis/stemmer/en/src/java"/>
 	<classpathentry kind="src" path="islamkosh/data-analysis/stemmer/bn/src/java"/>
@@ -23,5 +24,6 @@
 	<classpathentry kind="lib" path="libs/solrj-lib/woodstox-core-asl-4.4.1.jar"/>
 	<classpathentry kind="lib" path="libs/solrj-lib/zookeeper-3.4.6.jar"/>
 	<classpathentry kind="lib" path="libs/solr-solrj-5.1.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

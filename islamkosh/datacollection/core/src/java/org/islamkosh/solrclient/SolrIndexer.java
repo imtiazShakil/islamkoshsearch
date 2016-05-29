@@ -40,6 +40,7 @@ public class SolrIndexer implements Indexer {
 			LOG.fatal(e.getMessage(),e);
             return  false;
 		}
+		PushToSolr.commitAndOptimize();
 		return true;
 	}
 

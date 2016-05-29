@@ -11,7 +11,8 @@ import java.util.Map;
  * @version 1.0
  */
 public class Metadata {
-
+	
+	private static String PRIMARY_KEY_LABEL="id"; 
 	private String id; // this has to be unique
 	/**
 	 * A map of all metadata attributes.
@@ -24,6 +25,7 @@ public class Metadata {
 	public Metadata(String primaryKey) {
 		this.id = primaryKey;
 		metadata = new HashMap<String, String[]>();
+		set(PRIMARY_KEY_LABEL, this.id);
 	}
 	
 	/**
@@ -32,6 +34,7 @@ public class Metadata {
 	 */
 	public void setPrimaryKey(String primaryKey) {
 		this.id = primaryKey;
+		set(PRIMARY_KEY_LABEL, this.id);
 	}
 	
 	/**
