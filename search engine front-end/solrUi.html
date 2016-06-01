@@ -37,7 +37,9 @@ $(document).ready(function(){
            dataType:"jsonp",
            success: function(data) {
                console.log(data);
+               console.log("url:"+this.url);
                writeDocs3(data.response.docs, data.highlighting);
+               writeStats(data.response, data.responseHeader);
            },
            error: function(data) {
                successmessage = 'Error';
@@ -93,7 +95,10 @@ $(document).ready(function(){
     		
     	});
     }
-    
+    function writeStats(response, responseHeader){
+    	$("#total-results").empty();
+    	$("#total-results").append("Total "+response.numFound+" result(s) founds in "+responseHeader.QTime+" ms");
+    }
 
 });
 </script>
@@ -106,11 +111,12 @@ $(document).ready(function(){
 		        <input type="text" id="tfq2b" class="tftextinput2" size="21" maxlength="120" value="Search Islam Kosh">
 		        <input type="submit" value=">" class="tfbutton2">
 		</div>
+		<div id="total-results"></div>
 		<div class="tfclear"></div>
 	</div>
-	
-<div id="solr_result"></div>
 
+
+<div id="solr_result"></div>
 
 </body>
 </html>

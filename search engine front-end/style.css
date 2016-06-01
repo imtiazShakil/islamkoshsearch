@@ -53,3 +53,10 @@
 		padding-bottom: 20px;
 		width: 60%;
 	}
+	#total-results {
+		float: right;
+		padding: 20px 50px;
+		font-style: oblique;
+		font-family: sans-serif;
+	}
+	    
