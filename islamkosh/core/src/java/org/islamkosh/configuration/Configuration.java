@@ -14,28 +14,71 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
+/**
+ * <h3>Configuration class represents a persistent set of properties.</h3>
+ * <p>The System properties plus islamkosh properties are stored and access by this class</p>
+ * 
+ * <br><br>This class is thread-safe: multiple threads can share a single Properties
+ * <br>object without the need for external synchronization.
+ * @author imtiaz
+ *
+ */
 public class Configuration {
 
-	public static final String CONFIGURATION_LABEL = "configuration";
-	public static final String PROPERTY_LABEL = "property";
-	public static final String NAME_LABEL = "name";
-	public static final String VALUE_LABEL = "value";
-	public static final String DESCRIPTION_LABEL = "description";
-
-	public static Properties loadProperties(File file)
+	private static final String CONFIGURATION_LABEL = "configuration";
+	private static final String PROPERTY_LABEL = "property";
+	private static final String NAME_LABEL = "name";
+	private static final String VALUE_LABEL = "value";
+	private static final String DESCRIPTION_LABEL = "description";
+	private static Properties islamkoshProperties;
+	
+	public static void initialize() throws ParserConfigurationException, SAXException, IOException {
+		String islamkoshDefaultXml = System.getProperty("islamkosh.properties.default.file", "islamkosh-default.xml");
+		islamkoshProperties = loadPropertiesFromClasspath(islamkoshDefaultXml);
+		
+		/**
+		 * merging the system properties with islamkoshProperties
+		 */
+		Properties systemProperties = System.getProperties();
+		Enumeration<?> en = systemProperties.propertyNames();
+		while (en.hasMoreElements()) {
+			String key = (String) en.nextElement();
+			islamkoshProperties.setProperty(key, systemProperties.getProperty(key));
+		}
+	}
+	/**
+	 * Gets the islamkosh property indicated by the specified key. 
+	 * @param key the name of the system property.
+	 * @return the string value of the system property, or null if there is no property with that key.
+	 */
+	public static String getProperty(String key) {
+		return islamkoshProperties.getProperty(key);
+	}
+	
+	/**
+	 * Gets the islamkosh property indicated by the specified key. 
+	 * @param key the name of the system property.
+	 * @param def a default value.
+	 * @return the string value of the system property, or the default value if there is no property with that key.
+	 */
+	public static String getProperty(String key, String def) {
+		return islamkoshProperties.getProperty(key,def);
+	}
+	
+	
+	protected static Properties loadProperties(File file)
 			throws ParserConfigurationException, SAXException, IOException {
 		InputStream inputStream = new FileInputStream(file);
 		return loadProperties_(inputStream);
 	}
 
-	public static Properties loadPropertiesFromClasspath(String name)
+	protected static Properties loadPropertiesFromClasspath(String name)
 			throws ParserConfigurationException, SAXException, IOException {
 		return loadProperties_(Configuration.class.getClassLoader()
 				.getResourceAsStream(name));
 	}
 
-	public static Properties loadProperties_(InputStream inputStream)
+	protected static Properties loadProperties_(InputStream inputStream)
 			throws ParserConfigurationException, SAXException, IOException {
 		if (inputStream == null)
 			throw new IOException("Required inputStream is null");

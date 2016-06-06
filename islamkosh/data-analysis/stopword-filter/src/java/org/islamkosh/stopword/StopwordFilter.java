@@ -16,6 +16,7 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.islamkosh.configuration.Configuration;
 
 
 
@@ -35,7 +36,7 @@ public class StopwordFilter {
     private static void init() {
         dataLoaded = true;
         
-        String stopWordFileName = System.getProperty("stopword.file", "stopwords.txt");
+        String stopWordFileName = Configuration.getProperty("stopword.file", "stopwords.txt");
         
         BufferedReader br = null;
         InputStream is = StopwordFilter.class.getClassLoader().getResourceAsStream(stopWordFileName);
@@ -87,8 +88,5 @@ public class StopwordFilter {
         else return term;
     }
     
-    public static void main(String[] args) {
-    	System.out.println( StopwordFilter.filter("this") );
-    }
     
 }

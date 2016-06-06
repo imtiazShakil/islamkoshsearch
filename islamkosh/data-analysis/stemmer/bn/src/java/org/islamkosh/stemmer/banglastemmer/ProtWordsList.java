@@ -2,6 +2,7 @@ package org.islamkosh.stemmer.banglastemmer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.islamkosh.configuration.Configuration;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -18,7 +19,7 @@ public class ProtWordsList {
 	private static HashSet<String> protWords = new HashSet<String>();
 
 	public static void loadProtWords() throws IOException {
-		String protWordFilePath = System.getProperty(
+		String protWordFilePath = Configuration.getProperty(
 				"stemmer.bangla.protected.file", "bengaliprotwords.txt");
 		InputStream is = ProtWordsList.class.getClassLoader()
 				.getResourceAsStream(protWordFilePath);

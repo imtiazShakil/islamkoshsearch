@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.islamkosh.configuration.Configuration;
 import org.islamkosh.metadata.Metadata;
 
 /**
@@ -145,7 +146,7 @@ public class KeywordExtraction {
 		int TOTAL_UNIQUE_WORDS = hm.size();
 		int topFrequentWords = (int) (CONTENT_RATIO * (double) TOTAL_UNIQUE_WORDS);
 		topFrequentWords = Integer.min(topFrequentWords, Integer
-				.parseInt(System.getProperty("keywords.size", MAX_KEYWORDS_SIZE)));
+				.parseInt(Configuration.getProperty("keywords.size", MAX_KEYWORDS_SIZE)));
 
 		if (LOG.isTraceEnabled()) {
 			LOG.trace("Total-->" + TOTAL_UNIQUE_WORDS + " selected-->"

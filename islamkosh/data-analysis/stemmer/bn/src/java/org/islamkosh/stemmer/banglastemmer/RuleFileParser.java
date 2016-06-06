@@ -2,6 +2,7 @@ package org.islamkosh.stemmer.banglastemmer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.islamkosh.configuration.Configuration;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class RuleFileParser {
 												// where c=consonant v=vowel
 
 	public RuleFileParser() throws IOException {
-		String ruleFilePath = System.getProperty("stemmer.bangla.rule.file",
+		String ruleFilePath = Configuration.getProperty("stemmer.bangla.rule.file",
 				"stem.rules");
 		InputStream is = RuleFileParser.class.getClassLoader()
 				.getResourceAsStream(ruleFilePath);

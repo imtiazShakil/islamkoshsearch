@@ -9,6 +9,7 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrInputDocument;
+import org.islamkosh.configuration.Configuration;
 import org.islamkosh.metadata.Metadata;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class PushToSolr {
 	private static final Log LOG = LogFactory
 			.getLog(PushToSolr.class.getName());
 	
-	private static final String SOLR_URL = System.getProperty("solr.url", "http://localhost:8983/solr/islamkosh");
+	private static final String SOLR_URL = Configuration.getProperty("solr.url", "http://localhost:8983/solr/islamkosh");
 
 	private static SolrClient solr;	
 	public static void ConnectWithSolr() throws Exception{

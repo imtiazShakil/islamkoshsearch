@@ -2,6 +2,7 @@ package org.islamkosh.stemmer.banglastemmer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.islamkosh.configuration.Configuration;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,7 +21,7 @@ public class BnStemmer {
     public static void initializeStemmer () throws IOException {
         if (initialized) return;
         
-        threshold = Double.parseDouble( System.getProperty("stemmer.bangla.threshold", "25") )/100f;
+        threshold = Double.parseDouble( Configuration.getProperty("stemmer.bangla.threshold", "25") )/100f;
         try {
             ProtWordsList.loadProtWords();
             parser = new RuleFileParser( );
