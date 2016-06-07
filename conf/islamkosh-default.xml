@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+
+<property>
+ <name>keywords.size</name>
+ <value>100</value> 
+ <description>
+ maximum amount of keywords the 
+ keyword extraction will try to generate
+ </description>
+</property>
+
+<property>
+ <name>solr.url</name>
+ <value>http://localhost:8983/solr/islamkosh</value> 
+ <description>The solr url where datas will be commited</description>
+</property>
+
+<property>
+ <name>stemmer.bangla.threshold</name>
+ <value>25</value> 
+ <description>Sazid knows better</description>
+</property>
+
+<property>
+ <name>stemmer.bangla.protected.file</name>
+ <value>bengaliprotwords.txt</value> 
+ <description>Sazid knows better</description>
+</property>
+
+<property>
+ <name>stemmer.bangla.rule.file</name>
+ <value>stem.rules</value> 
+ <description>Sazid knows better</description>
+</property>
+
+<property>
+ <name>stopword.file</name>
+ <value>stopwords.txt</value> 
+ <description>
+ the name of the stopword file that is used to check and remove stopwords
+ </description>
+</property>
+
+</configuration>
+
