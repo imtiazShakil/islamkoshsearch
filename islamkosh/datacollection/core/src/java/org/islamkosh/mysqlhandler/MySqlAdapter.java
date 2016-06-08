@@ -4,6 +4,7 @@ import com.mysql.jdbc.Connection;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.islamkosh.configuration.Configuration;
 import org.islamkosh.metadata.Metadata;
 
 import java.io.UnsupportedEncodingException;
@@ -28,30 +29,21 @@ public class MySqlAdapter {
 	private Statement statement;
 	private ArrayList<Metadata> rows;
 
-	private String DB_URL = "jdbc:mysql://localhost/hadiths?";
-	private String DB_USER = "root";
-	private String DB_PASS = "Sazid1462";
-	private String TABLE_NAME = "hadiths";
+	private String DB_URL = Configuration.getProperty("mysql.db.url", 
+			"jdbc:mysql://localhost/hadiths?");
+	private String DB_USER = Configuration.getProperty("mysql.db.user", 
+			"root");
+	private String DB_PASS = Configuration.getProperty("mysql.db.pass", 
+			"Sazid1462");
+	private String TABLE_NAME = Configuration.getProperty("mysql.db.table", 
+			"hadiths");
+	private String TABLE_COLUMNS = Configuration.getProperty("mysql.db.table.columns", 
+			"*");
 
 	/**
-	 * Only constructor for the class. It will initialise the database handler.
-	 *
-	 * @param dbUrl
-	 *            URL of the MySQLDatabase (i.e.
-	 *            jdbc:mysql://localhost/ghoori_test?)
-	 * @param dbUser
-	 *            Username of the database server
-	 * @param dbPass
-	 *            Password of the database server
-	 * @param tableName
-	 *            Name of the table
+	 * Only constructor for the class. It will initialize the database handler.
 	 */
-	public MySqlAdapter(String dbUrl, String dbUser, String dbPass,
-			String tableName) {
-		DB_URL = dbUrl;
-		DB_USER = dbUser;
-		DB_PASS = dbPass;
-		TABLE_NAME = tableName;
+	public MySqlAdapter() {
 		rows = new ArrayList<Metadata>();
 	}
 
@@ -109,14 +101,30 @@ public class MySqlAdapter {
 			resultSet = statement.executeQuery(String.format(
 					"SELECT * FROM %s",
 					TABLE_NAME));
+			
+			String[] tableColumns = TABLE_COLUMNS.split(",");
 			while (resultSet.next()) {
-				Metadata row = new Metadata(Integer.toString(resultSet.getInt("id")));
-				row.set("chapter", resultSet.getString("chapter"));
-				row.set("section", resultSet.getString("section"));
-				row.set("narrator", resultSet.getString("narrator"));
-				row.set("body", resultSet.getString("body"));
-				
-				rows.add(row);
+				if (TABLE_COLUMNS.equalsIgnoreCase("*")) {
+					Metadata row = null;
+					
+					String[] column = tableColumns[0].split(" ");
+					if (column[1].equalsIgnoreCase("int"))
+					{
+						row = new Metadata(Integer.toString(resultSet.getInt(tableColumns[0])));
+					} else if (column[1].equalsIgnoreCase("string")) {
+						row = new Metadata(resultSet.getString(tableColumns[0]));
+					}
+					for (int i=1; i<tableColumns.length; i++) {
+						column = tableColumns[0].split(" ");
+						if (column[1].equalsIgnoreCase("int"))
+						{
+							row.set(column[0], Integer.toString(resultSet.getInt(tableColumns[i])));
+						} else if (column[1].equalsIgnoreCase("string")) {
+							row.set(column[0], resultSet.getString(tableColumns[i]));
+						}
+					}					
+					rows.add(row);
+				}
 			}
 			LOG.info("Found " + rows.size() + " rows.");
 			// writeResultSet(resultSet);
@@ -143,7 +151,7 @@ public class MySqlAdapter {
 		}
 		return null;
 	}
-
+/*
 	private void writeMetaData(ResultSet resultSet) throws SQLException {
 		// Now get some metadata from the database
 		// Result set get the result of the SQL query
@@ -174,5 +182,5 @@ public class MySqlAdapter {
 			// System.out.println("Update Date: " + updateDate);
 		}
 	}
-
+*/
 }

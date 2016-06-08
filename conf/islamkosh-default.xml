@@ -7,40 +7,103 @@
  <name>keywords.size</name>
  <value>100</value> 
  <description>
- maximum amount of keywords the 
- keyword extraction will try to generate
+	maximum amount of keywords the 
+	keyword extraction will try to generate
  </description>
 </property>
 
 <property>
+ <name>keywords.input</name>
+ <value>body</value> 
+ <description>
+	The column name from which the keyword extractor will take input
+ </description>
+</property>
+
+<!-- MySQL Collector Properties -->
+<property>
+ <name>mysql.db.url</name>
+ <value>jdbc:mysql://localhost/hadiths?</value> 
+ <description>URL of the mysql database</description>
+</property>
+
+<property>
+ <name>mysql.db.user</name>
+ <value>root</value> 
+ <description>Database adminstrator/root user name</description>
+</property>
+
+<property>
+ <name>mysql.db.pass</name>
+ <value>Sazid1462</value> 
+ <description>Database adminstrator/root user password</description>
+</property>
+
+<property>
+ <name>mysql.db.table</name>
+ <value>hadiths</value> 
+ <description>Name of the table</description>
+</property>
+
+<property>
+ <name>mysql.db.table.columns</name>
+ <value>id int,chapter string,section string,narrator string,body string</value> 
+ <description>
+	list of columns to collect. first one is the primary key. name of the primary key can be any valid column name in the mysql db but
+	in the solr primary key will be indexed as id. other columns in the solr will remain same as mysql db.
+ </description>
+</property>
+
+<!-- Indexer properties -->
+<property>
  <name>solr.url</name>
- <value>http://localhost:8983/solr/islamkosh</value> 
+ <value>http://localhost:8983/solr/islamkoshcore</value> 
  <description>The solr url where datas will be commited</description>
+</property>
+
+<!-- Bangla Stemmer properties
+Stemming is the process of extracting stem or root word for a given inflected word. The basic concept of stemming is to reduce 
+different grammatical / word forms to its root, stem or base  form. Stemming is widely used in Information Retrieval System. 
+We used the rule based system to find the root words. The major benefit of using a rule based system is its low time consumption.
+-->
+<property>
+ <name>stemmer.bangla.rule.file</name>
+ <value>stem.rules</value> 
+ <description>
+	Rules are to be written in this (default: stem.rules) file. There are three types of rules:
+
+	X                       + n		# When X appears at the end of a word and word length is at least n, remove it
+	Y       ->      Z       + n		# When Y appears at the end of a word and word length is at least n, replace it with Z
+	Y.Z     ->      A.B    	+ n		# When Y, followed by some character a, followed by Z appears at the end of a word 
+									# and word length is at least n, replace it with AaB  
+	Execution order of the rules are the order of appearance. There may be one or more rules group. These are called phases. In each
+	phase only first matching rule is executed and all rules following are skipped in that phase. Execution order of the phases are 
+	also the order of appearance.
+ </description>
 </property>
 
 <property>
  <name>stemmer.bangla.threshold</name>
  <value>25</value> 
- <description>Sazid knows better</description>
+ <description>
+	Threshold (default value is 25) indicates the minimum ratio percentage of (stem length)/(word length). By default if the 
+	stem length is less than 25% of the input word then it will not be stemmed.
+ </description>
 </property>
 
 <property>
  <name>stemmer.bangla.protected.file</name>
  <value>bengaliprotwords.txt</value> 
- <description>Sazid knows better</description>
-</property>
-
-<property>
- <name>stemmer.bangla.rule.file</name>
- <value>stem.rules</value> 
- <description>Sazid knows better</description>
+ <description>
+	If you need to protect some special words from unwanted stemming then put the word in this file (default is bengaliprotwords.txt)
+ </description>
 </property>
 
 <property>
  <name>stopword.file</name>
  <value>stopwords.txt</value> 
  <description>
- the name of the stopword file that is used to check and remove stopwords
+ 	the name of the stopword file that is used to check and remove stopwords
  </description>
 </property>
 
