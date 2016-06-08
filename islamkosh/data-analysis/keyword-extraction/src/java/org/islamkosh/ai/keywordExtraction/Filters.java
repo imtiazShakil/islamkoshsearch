@@ -5,6 +5,7 @@
  */
 package org.islamkosh.ai.keywordExtraction;
 
+import org.islamkosh.languages.LanguageCheck;
 import org.islamkosh.stemmer.banglastemmer.BnStemmer;
 import org.islamkosh.stemmer.kstemmer.KStemmer;
 import org.islamkosh.stopword.StopwordFilter;
@@ -22,13 +23,13 @@ public class Filters {
 		term = StopwordFilter.filter(term);
 		if (term == null)
 			return null;
-		term = BnStemmer.stem(term);
-		term = kstemmer.stem(term);
-//		if (languageCheck.checkWords(term) == MetadataConstants.BANGLA_LANGUAGE) {
-//			term = BnStemmer.stem(term);
-//		} else if (languageCheck.checkWords(term) == MetadataConstants.BASICLATIN_LANGUAGE) {
-//			term = kstemmer.stem(term);
-//		}
+//		term = BnStemmer.stem(term);
+//		term = kstemmer.stem(term);
+		if (LanguageCheck.checkWords(term) == LanguageCheck.BANGLAWORD) {
+			term = BnStemmer.stem(term);
+		} else if (LanguageCheck.checkWords(term) == LanguageCheck.BASICLATINWORD) {
+			term = kstemmer.stem(term);
+		}
 		term = StopwordFilter.filter(term);
 		return term;
 	}
