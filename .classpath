@@ -6,6 +6,7 @@
 	<classpathentry kind="src" path="islamkosh/data-analysis/stemmer/en/src/java"/>
 	<classpathentry kind="src" path="islamkosh/data-analysis/stemmer/bn/src/java"/>
 	<classpathentry kind="src" path="islamkosh/data-analysis/keyword-extraction/src/java"/>
+	<classpathentry kind="src" path="islamkosh/data-analysis/language-checker/src/java"/>
 	<classpathentry kind="src" path="islamkosh/data-analysis/core/src/java"/>
 	<classpathentry kind="src" path="islamkosh/datacollection/core/src/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
