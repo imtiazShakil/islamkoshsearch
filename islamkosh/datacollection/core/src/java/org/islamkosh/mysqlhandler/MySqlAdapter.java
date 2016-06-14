@@ -104,27 +104,27 @@ public class MySqlAdapter {
 			
 			String[] tableColumns = TABLE_COLUMNS.split(",");
 			while (resultSet.next()) {
-				if (TABLE_COLUMNS.equalsIgnoreCase("*")) {
-					Metadata row = null;
-					
-					String[] column = tableColumns[0].split(" ");
+				
+				Metadata row = null;
+				
+				String[] column = tableColumns[0].split(" ");
+				if (column[1].equalsIgnoreCase("int"))
+				{
+					row = new Metadata(Integer.toString(resultSet.getInt(column[0])));
+				} else if (column[1].equalsIgnoreCase("string")) {
+					row = new Metadata(resultSet.getString(column[0]));
+				}
+				for (int i=1; i<tableColumns.length; i++) {
+					column = tableColumns[i].split(" ");
 					if (column[1].equalsIgnoreCase("int"))
 					{
-						row = new Metadata(Integer.toString(resultSet.getInt(tableColumns[0])));
+						row.set(column[0], Integer.toString(resultSet.getInt(column[0])));
 					} else if (column[1].equalsIgnoreCase("string")) {
-						row = new Metadata(resultSet.getString(tableColumns[0]));
+						row.set(column[0], resultSet.getString(column[0]));
 					}
-					for (int i=1; i<tableColumns.length; i++) {
-						column = tableColumns[0].split(" ");
-						if (column[1].equalsIgnoreCase("int"))
-						{
-							row.set(column[0], Integer.toString(resultSet.getInt(tableColumns[i])));
-						} else if (column[1].equalsIgnoreCase("string")) {
-							row.set(column[0], resultSet.getString(tableColumns[i]));
-						}
-					}					
-					rows.add(row);
-				}
+				}					
+				rows.add(row);
+			
 			}
 			LOG.info("Found " + rows.size() + " rows.");
 			// writeResultSet(resultSet);
