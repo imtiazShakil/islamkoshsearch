@@ -119,8 +119,8 @@ public class Utils {
 		if (len > s.length) throw new ArrayIndexOutOfBoundsException(
 				"Array size is "+s.length+" but minimum required size is "+len);
 		System.arraycopy(s, 0, s, 0, pos);
-		System.arraycopy(r, 0, s, pos, rLen);
 		System.arraycopy(s, pos+nChars, s, pos+rLen, sLen-pos-nChars);
+		System.arraycopy(r, 0, s, pos, rLen);
 		return len;
 	}
 	
@@ -130,6 +130,7 @@ public class Utils {
 		StringBuilder sb = new StringBuilder(string.length()+replace.length());
 		sb.append(string.substring(0, pos));
 		sb.append(replace);
+//		sb.append(string.substring(pos+Math.max(rLen, nChars)));
 		sb.append(string.substring(pos+nChars));
 		return sb.toString();
 	}

@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class BengaliNormalizerTest {
 
-	static String testCase = "রেখেছেন শির্কসহ সব রকমের পাপাচার অশ্লীলতা থেকে মুক্ত";
+	static String testCase = "রেখেছেন শির্কসহ সব রকমের পাপাচার অশ্লীলতা থেকে মুক্ত জানুয়ারি জানুয়ারি জানুয়ারী জানুয়ারী";
 	// File will be loaded from the classpath. Make sure it is accessible from the classpath.
 	static String ruleFileName = "bengali-normalizer-rules.txt";
 	
@@ -31,6 +31,8 @@ public class BengaliNormalizerTest {
 	public void testBengaliNormalizer() {
 		BengaliNormalizer bNorm = new BengaliNormalizer(BengaliNormalizerTest.class.getClassLoader().getResourceAsStream(
 				ruleFileName));
+		
+		System.out.println("Original:\t"+testCase);
 	}
 
 	@Test
@@ -38,6 +40,7 @@ public class BengaliNormalizerTest {
 		BengaliNormalizer bNorm = new BengaliNormalizer(BengaliNormalizerTest.class.getClassLoader().getResourceAsStream(
 				ruleFileName));
 		
+		System.out.print("CharArray:\t");
 		StringTokenizer tok = new StringTokenizer(testCase, " ");
 		char arr[];
 		while (tok.hasMoreTokens()) {
@@ -56,9 +59,9 @@ public class BengaliNormalizerTest {
 		BengaliNormalizer bNorm = new BengaliNormalizer(BengaliNormalizerTest.class.getClassLoader().getResourceAsStream(
 				ruleFileName));
 		
+		System.out.print("String: \t");
 		StringTokenizer tok = new StringTokenizer(testCase, " ");
-		System.out.println(testCase);
-//		System.out.println(tok.countTokens());
+		
 		while (tok.hasMoreTokens()) {
 //			System.out.println(tok.countTokens());
 			String str = tok.nextToken();

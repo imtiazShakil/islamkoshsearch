@@ -88,6 +88,7 @@ public class BengaliNormalizer {
 	    		if (rules.containsKey(t2)) {
 	    			char[] replace = rules.get(t2).toCharArray();
 	    			len = Utils.replace(s, replace, i, len, replace.length, 2);
+	    			i++;
 	    		} else if (rules.containsKey(t1)) {
 	    			char[] replace = rules.get(t1).toCharArray();
 	    			len = Utils.replace(s, replace, i, len, replace.length, 1);
@@ -114,6 +115,7 @@ public class BengaliNormalizer {
 	    		if (rules.containsKey(t2)) {
 	    			String replace = rules.get(t2);
 	    			str = Utils.replace(str, replace, i, 2);
+	    			i++;
 	    		} else if (rules.containsKey(t1)) {
 	    			String replace = rules.get(t1);
 	    			str = Utils.replace(str, replace, i, 1);
