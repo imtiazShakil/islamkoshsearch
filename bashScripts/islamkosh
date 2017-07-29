@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Property of Islamkosh Search Project
+#
+# Authors:
+# Imtiaz Shakil Siddique
+# Sazedul Islam Sazid
+#
+# CONTROLLING STARTUP:
+#
+# Use islamkosh -help to see available command-line options. 
+
+ISLAMKOSH_SCRIPT="$0"
+
+# Resolve symlinks to this script
+while [ -h "$ISLAMKOSH_SCRIPT" ] ; do
+  ls=`ls -ld "$ISLAMKOSH_SCRIPT"`  
+  # Drop everything prior to ->
+  link=`expr "$ls" : '.*-> \(.*\)$'`
+  if expr "$link" : '/.*' > /dev/null; then
+    ISLAMKOSH_SCRIPT="$link"
+  else
+    ISLAMKOSH_SCRIPT=`dirname "$SOLR_SCRIPT"`/"$link"
+  fi
+done
+
+ISLAMKOSH_TIP=`dirname "$ISLAMKOSH_SCRIPT"`/..
+ISLAMKOSH_TIP=`cd "$ISLAMKOSH_TIP"; pwd`
+
+echo "Project Location Found :$ISLAMKOSH_TIP"
